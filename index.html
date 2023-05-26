@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--Visual de la página-->
+<head>
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1">
+  <title>Encriptador de texto</title>
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="shorcut icon" href="public/logo.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header"><!--Espacio para logo-->
+    <img src="public/logo.svg" alt="Logo de Alura Latam">
+  </header>
+  <main class="main"><!--Espacio para ingresar mensaje y botones-->
+     <textarea id="message" placeholder="Ingrese el texto aquí." cols="10vw" rows="4vh" autocapitalize="none"></textarea>
+     <div class="warning">
+      <i class="fa fa-exclamation-circle" alt="Símbolo con signo de exclamación"></i><h3> Solo letras minúsculas y sin acentos.</h3>
+    </div>
+    <div class="main-button">
+      <button class="button" id="encriptar-button"><h2>Encriptar</h2></button>
+      <button class="button" id="desencriptar-button"><h2>Desencriptar</h2></button>
+    </div>
+    </main>
+  <aside class="sidebar"><!-- Espacio para pantalla de mensaje desencriptado-->
+    <div class="output-box">
+      <div id="output-box-content" class="output-box-content">
+        <img id="doll-image" class="doll-image" src="public/doll.svg" alt="Persona sentada sosteniendo una lupa, mirando hacia un diamante. La imagen es azul con blanco">
+        <h1 >Ningún mensaje fue encontrado.</h1>
+        <h2>Ingresa el texto que desees encriptar o desencriptar.</h2>
+      </div>
+      <div class="output">
+        <output id="output-message" hidden></output>
+      </div>
+      <div class="sidebar-button">
+        <button class="button" id="copy-button" disabled hidden><h2>Copiar</h2></button>  
+      </div>
+    </div>
+  </aside>
+  <footer class="footer"><!--Espacio para mensaje de autoría-->
+    <h3>Desarrollado por Nathalia Tobón (<a href="https://github.com/NathTobon">https://github.com/NathTobon</a>)</h3>
+  </footer>
+</body>
+</html>
+<script>
+// Lógica de los inputs y outputs
+// Función agarrar elementos
+function getElement(elemento){
+  var elemento = document.getElementById(elemento);
+  return elemento
+}
+// The copy button is currently 'disabled' and 'hidden'.
+// Set copy button properties to false.
+function aparecerCopy(evento){
+getElement("copy-button").disabled=false;
+getElement("copy-button").hidden=false;
+}
+function desaparecerOutputContent(evento){
+  getElement("output-box-content").style.display="none";
+}
+function escribirOutput(evento){
+  getElement("output-message").hidden=false;
+  getElement("output-message").innerHTML = messageChanged;
+}
+function cambiarOutput(evento){
+  aparecerCopy(evento);
+  desaparecerOutputContent(evento);
+  escribirOutput(evento);
+}
+// Funciones para cada boton. Llama a la función correpondiente y a las funciones de cambiarOutput
+function botonEncriptar(evento){
+  encriptar(evento);
+  cambiarOutput(evento);
+}
+function botonDesencriptar(evento){
+  desencriptar(evento)
+  cambiarOutput(evento);
+}
+// Llamada a los botones encriptar y desencriptar
+var encriptarBoton = document.querySelector("#encriptar-button");
+encriptarBoton.onclick = botonEncriptar;
+var desencriptarBoton = document.querySelector("#desencriptar-button");
+desencriptarBoton.onclick = botonDesencriptar;
+var messageChanged;
+// Función para encriptar el mensaje
+function encriptar(evento){
+  message = getElement("message");
+  message = message.value;
+  messageChanged = "";
+  //message = new String (message);
+  var letra;
+  for (var i = 0; i < message.length; i++){
+    letra = message.substring(i,i+1);
+    switch (letra){
+      case "a":
+        letra = "ai";
+        break;
+      case "e":
+        letra = "enter";
+        break;
+      case "i":
+        letra = "imes";
+        break;
+      case "o":
+        letra = "ober";
+        break;
+      case "u":
+        letra = "ufat";
+      default:
+        letra = letra;
+      break;
+    }
+    messageChanged = messageChanged + letra;
+  }
+  return messageChanged;
+}
+//Función para desencriptar el mensaje
+function desencriptar(){
+  message = getElement("message");
+  message = message.value;
+  messageChanged = "";
+  messageChanged = message.replaceAll("ai", "a");
+  messageChanged = messageChanged.replaceAll("enter", "e");
+  messageChanged = messageChanged.replaceAll("imes", "i");
+  messageChanged = messageChanged.replaceAll("ober", "o");
+  messageChanged = messageChanged.replaceAll("ufat", "u");
+  return messageChanged;
+}
+// Copiar a portapapeles
+function copiar(evento){
+// COPIAR A PORTAPAPELES
+  let pasteText = document.querySelector("#output-message");
+  return navigator.clipboard.writeText(pasteText.value);  
+}
+var copyButton = document.querySelector("#copy-button");
+copyButton.onclick = copiar;
+</script>

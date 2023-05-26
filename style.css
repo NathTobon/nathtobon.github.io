@@ -1,0 +1,233 @@
+*{
+    box-sizing: border-box;
+}
+/* GRID CONTAINER*/
+.footer{
+    padding: 0;
+}
+body:not(.footer) {
+    padding: 2rem;
+    background-color: #F3F5FC;
+    font-family: 'Inter', sans-serif;
+}
+/* Font size titles*/
+textarea{
+    font-size: 2.4rem;
+}
+output{
+    color: #495057;
+}
+h1{
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #343A40;
+}
+h2, output{
+    font-size: 1.3rem;
+}
+h3{
+    font-size: 1rem;
+    display: inline;
+}
+/*Botones*/
+.button{
+    border-color: #0A3871;
+    border-radius: 24px;
+    padding: 1%;
+    width: 20vw;
+    height: 3rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    transition: 0.2s;
+}
+.button:active{
+    opacity: 50%;
+}
+#encriptar-button{
+    background-color: #0A3871;
+    color: white;
+}
+#desencriptar-button{
+    background-color: #D8DFE8;
+    color: #0A3871;
+}
+#copy-button{
+    background-color: white;
+    color: #0A3871;    
+}
+/*Grid areas*/
+.header{
+    grid-area: header;
+    text-align: left;
+}
+.main{
+    grid-area: main;
+    padding-top: 10vh;
+    padding-left: 10vw;
+    padding-right: 10vw;
+    padding-bottom: 2vh;
+    display: grid;
+    grid-template:
+    "textarea" 70%
+    "warning"
+    "main-button";
+}
+textarea{
+    grid-area: textarea;
+    font-family: 'Inter', sans-serif;
+    height: 70%;
+    width: 80%;
+    background-color: #F3F5FC;
+    color:#0A3871;
+    border: none;
+}
+textarea::placeholder{
+    color:#0A3871;
+}
+.warning{
+    grid-area: warning;
+    margin-top: 6vh;
+}
+.main-button{
+    grid-area: main-button;
+    margin: 0 auto;
+}
+.sidebar{
+    grid-area: sidebar;
+    display: table;   
+}
+.output-box{
+    background-color: white;
+    box-shadow: 0px 24px 32px -8px rgba(0, 0, 0, 0.08);
+    border-radius: 32px;
+    padding: 10%;
+    height: 92vh;
+    text-align: center;
+    margin: 0 auto;
+    display:grid;
+    grid-template:
+        "output"
+        "output-box-content" auto
+        "sidebar-button" 10%;
+}
+.output-box-content{
+    grid-area: output-box-content;
+    vertical-align: middle;
+}
+.output{
+    grid-area: output;
+    overflow: auto;
+    word-wrap: break-word;
+    text-align: justify;
+    line-height: 1.5rem;
+    height: 90%;
+}
+.doll-image{
+    width: 100%;
+    padding-top: 10vh;
+}
+.sidebar-button{
+    grid-area: sidebar-button;
+    vertical-align: bottom;
+}
+.footer{
+    grid-area: footer;
+    text-align: left;
+    vertical-align: bottom;
+}
+/* Computadores y pantallas más grandes*/
+body{
+    display: grid;
+    grid-template: 
+    "header sidebar" 6vh
+    "main sidebar" auto 
+    "footer footer" 1vh
+    / auto   30vw;
+    ; /*Para incluir ancho de columnas*/
+}
+/* Dispositivos tablets*/
+@media (max-width: 800px) {
+    body{
+        grid-template: 
+            "header"
+            "main"
+            "sidebar"
+            "footer";
+    }
+    .main{
+        margin-bottom:10vh;
+    }
+    .doll-image{
+        display: none;
+    }
+    .output-box{
+        height:auto;
+    }
+    .output-box-content{
+        padding: 0;
+        grid-template:
+         "output-box-content"
+         "output"
+         "sidebar-button";
+    }
+    .footer{
+        margin-top: 1rem;
+        text-align: center;
+    }
+    body{
+        grid-template: 
+        "header" auto
+        "main" 
+        "sidebar" 
+        "footer";
+    }
+    .main{
+        padding-bottom: 0;
+        grid-template:
+        "textarea"
+        "warning"
+        "main-button"
+    }
+}
+/*Dispositivos móviles*/
+@media (max-width: 500px) {
+    .doll-image{
+        display: none;
+    }
+    body{
+        grid-template: 
+        "header" auto
+        "main" 
+        "sidebar" 
+        "footer";
+    }
+    .main{
+        padding-bottom: 0;
+        grid-template:
+        "textarea"
+        "warning"
+        "main-button"
+    }
+    textarea{
+        width: 100%;
+    }
+
+    .main-button{
+        display: inline;
+        height: fit-content;
+    }
+    .output-box{
+        grid-template:
+         "output-box-content"
+         "output"
+         "sidebar-button";
+    }    
+    .footer{
+        margin-top: 1rem;
+        text-align: center;
+    }
+    .button{
+        font-size: small;
+        width: 90%;
+    }
+}
